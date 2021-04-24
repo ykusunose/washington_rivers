@@ -1,2 +1,2 @@
 # washington_rivers
-Lab-02 from MAP 671
+Lab-03 from MAP 671
