@@ -1,0 +1,110 @@
+
+
+create table
+	wa_state
+as
+select
+	id,
+	geom,
+	state_abbr
+from 
+	us_states
+where
+	"state_abbr" = 'WA'
+
+
+    drop table if exists
+	wa_urbanareas;
+
+create table	
+	wa_urbanareas
+as
+select
+  id,
+  geom,
+  state,
+  ua_label as "city_name",
+  cast(gis_acres as real) as "acres"
+  
+from
+	"US_SmallScale_Data_NAD83 UrbanAreas"
+where
+	"state" like '%WA%'
+order by
+	"acres" desc;
+	
+alter table
+	wa_urbanareas
+add primary key (id);
+
+drop table if exists
+	wa_streams;
+	
+create table
+	wa_streams
+as
+select
+	id,
+	geom,
+	state,
+	name,
+	feature,
+	length_mi,
+	strahler as stream_order
+from
+	"US_SmallScale_Data_NAD83 NHD_Streams"
+where
+	"state" like '%WA%'
+and 
+	strahler > -999
+order by 
+	strahler DESC;
+
+drop table if exists
+	wa_waterbodies;
+	
+create table
+	wa_waterbodies
+as
+select
+	id,
+	geom,
+	state,
+	name,
+	feature,
+	area_sq_mi
+from
+	"US_SmallScale_Data_NAD83 NHD_Waterbodies"
+where
+	"state" like '%WA%'
+order by 
+	area_sq_mi
+
+drop table if exists
+	wa_waterbodies;
+	
+create table
+	wa_waterbodies
+as
+select
+	id,
+	geom,
+	state,
+	name,
+	feature,
+	area_sq_mi
+from
+	"US_SmallScale_Data_NAD83 NHD_Waterbodies"
+where
+	"state" like '%WA%'
+order by 
+	area_sq_mi
+
+
+	
+	
+	
+	
+	
+	
+  
